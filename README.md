@@ -46,5 +46,5 @@ The other scripts (`cluster_data.py`, `cluster_v2.py`, `cluster_label.py`) are t
 - The data is fictional and uses only about 28 distinct phrasings, so real logs will be messier.
 - The grouping threshold was tuned on 71 records. A real deployment needs re-tuning.
 - A small local model writes generic suggestions, so they are drafts for a person to review.
-- The decision log records what was decided and when, but not who decided. A real version needs reviewer identity.
+- The reviewer is a typed name, not a login, so anyone can enter any name and the same person can appear under different spellings. A real version needs sign-in and a fixed list of reviewers.
 - Per-person counts are for coaching conversations, not for ranking people.

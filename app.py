@@ -111,14 +111,24 @@ con = sqlite3.connect("data/defects.db")
 con.execute("""CREATE TABLE IF NOT EXISTS decisions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     mistake TEXT, decision TEXT, decided_at TEXT)""")
+cols = [r[1] for r in con.execute("PRAGMA table_info(decisions)")]
+if "reviewer" not in cols:
+    con.execute("ALTER TABLE decisions ADD COLUMN reviewer TEXT")
 con.commit()
 con.close()
 
 def record(mistake, decision):
+    reviewer = st.session_state.get("reviewer", "").strip()
+    if reviewer == "":
+        st.session_state["need_reviewer"] = True
+        return
+    st.session_state["need_reviewer"] = False
     c = sqlite3.connect("data/defects.db")
     c.execute(
-        "INSERT INTO decisions (mistake, decision, decided_at) VALUES (?, ?, ?)",
-        (mistake, decision, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+        "INSERT INTO decisions (mistake, decision, decided_at, reviewer) "
+        "VALUES (?, ?, ?, ?)",
+        (mistake, decision,
+         datetime.now().strftime("%Y-%m-%d %H:%M:%S"), reviewer))
     c.commit()
     c.close()
 
@@ -128,6 +138,9 @@ latest = dict(con.execute(
     "(SELECT MAX(id) FROM decisions GROUP BY mistake)").fetchall())
 con.close()
 
+st.text_input("Reviewer name", key="reviewer", placeholder="Your name")
+if st.session_state.get("need_reviewer"):
+    st.warning("Enter your name before approving or rejecting.")
 for i, (_, r) in enumerate(m.iterrows()):
     is_process = r["verdict"] == "Process fix"
     color = "#4F8BF9" if is_process else "#F5B942"
@@ -149,7 +162,8 @@ for i, (_, r) in enumerate(m.iterrows()):
 st.subheader("Decision log")
 con = sqlite3.connect("data/defects.db")
 log = pd.read_sql(
-    "SELECT decided_at AS Time, mistake AS Mistake, decision AS Decision "
+    "SELECT decided_at AS Time, mistake AS Mistake, decision AS Decision, "
+    "COALESCE(reviewer, '(not recorded)') AS Reviewer "
     "FROM decisions ORDER BY id DESC LIMIT 10", con)
 con.close()
 if log.empty:
