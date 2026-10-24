@@ -98,7 +98,7 @@ who.columns = ["Person", "Defects", "Different mistakes"]
 st.markdown(who.to_html(index=False, classes="dtab", border=0),
             unsafe_allow_html=True)
 st.subheader("Intelligent Recommendations")
-st.caption("AI generated suggestions.We recommend reviewing them before taking action.")
+st.caption("AI generated suggestions. We recommend reviewing them before taking action.")
 
 con = sqlite3.connect("data/defects.db")
 sg = pd.read_sql("SELECT mistake, suggestion FROM suggestions", con)
