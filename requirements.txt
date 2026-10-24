@@ -1,0 +1,6 @@
+streamlit
+chromadb
+pandas
+plotly
+scikit-learn
+ollama
