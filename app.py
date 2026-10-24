@@ -2,6 +2,7 @@ import sqlite3
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+from datetime import datetime
 
 st.set_page_config(page_title="Repeat Mistake Radar", layout="wide")
 
@@ -106,7 +107,28 @@ con.close()
 m = g[["mistake", "defects", "verdict"]].merge(sg, on="mistake")
 m = m.sort_values("defects", ascending=False)
 
-for _, r in m.iterrows():
+con = sqlite3.connect("data/defects.db")
+con.execute("""CREATE TABLE IF NOT EXISTS decisions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mistake TEXT, decision TEXT, decided_at TEXT)""")
+con.commit()
+con.close()
+
+def record(mistake, decision):
+    c = sqlite3.connect("data/defects.db")
+    c.execute(
+        "INSERT INTO decisions (mistake, decision, decided_at) VALUES (?, ?, ?)",
+        (mistake, decision, datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    c.commit()
+    c.close()
+
+con = sqlite3.connect("data/defects.db")
+latest = dict(con.execute(
+    "SELECT mistake, decision FROM decisions WHERE id IN "
+    "(SELECT MAX(id) FROM decisions GROUP BY mistake)").fetchall())
+con.close()
+
+for i, (_, r) in enumerate(m.iterrows()):
     is_process = r["verdict"] == "Process fix"
     color = "#4F8BF9" if is_process else "#F5B942"
     st.markdown(
@@ -117,3 +139,21 @@ for _, r in m.iterrows():
         f"<div class='b'>{r['suggestion']}</div></div>",
         unsafe_allow_html=True,
     )
+    b1, b2, b3 = st.columns([1, 1, 6])
+    b1.button("Approve", key=f"approve_{i}", on_click=record,
+              args=(r["mistake"], "Approved"))
+    b2.button("Reject", key=f"reject_{i}", on_click=record,
+              args=(r["mistake"], "Rejected"))
+    b3.caption(f"Status: {latest.get(r['mistake'], 'Pending review')}")
+
+st.subheader("Decision log")
+con = sqlite3.connect("data/defects.db")
+log = pd.read_sql(
+    "SELECT decided_at AS Time, mistake AS Mistake, decision AS Decision "
+    "FROM decisions ORDER BY id DESC LIMIT 10", con)
+con.close()
+if log.empty:
+    st.caption("No decisions yet.")
+else:
+    st.markdown(log.to_html(index=False, classes="dtab", border=0),
+                unsafe_allow_html=True)
