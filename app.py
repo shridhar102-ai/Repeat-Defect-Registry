@@ -65,8 +65,10 @@ tile(c3, "Process-driven", f"{process_pct:.0f}%")
 tile(c4, "Top contributor", f"{top_person} ({top_count})")
 
 st.subheader("Top defect categories")
+choice = st.radio("Show", ["All", "Process fix", "Coaching"], horizontal=True)
+view = g if choice == "All" else g[g["verdict"] == choice]
 fig = px.bar(
-    g, x="defects", y="mistake", orientation="h", color="verdict",
+    view, x="defects", y="mistake", orientation="h", color="verdict",
     color_discrete_map={"Process fix": "#4F8BF9", "Coaching": "#F5B942"},
     text="defects",
 )
@@ -104,7 +106,7 @@ con = sqlite3.connect("data/defects.db")
 sg = pd.read_sql("SELECT mistake, suggestion FROM suggestions", con)
 con.close()
 
-m = g[["mistake", "defects", "verdict"]].merge(sg, on="mistake")
+m = view[["mistake", "defects", "verdict"]].merge(sg, on="mistake")
 m = m.sort_values("defects", ascending=False)
 
 con = sqlite3.connect("data/defects.db")
