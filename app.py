@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 from datetime import datetime
+import subprocess
+import sys
 
 st.set_page_config(page_title="Repeat Mistake Radar", layout="wide")
 
@@ -68,6 +70,27 @@ with st.expander("Try your own data: upload a defect CSV"):
             st.markdown(
                 up_df.head(5).to_html(index=False, classes="dtab", border=0),
                 unsafe_allow_html=True)
+            if st.button("Analyze this file"):
+                up_df.to_csv("uploaded_defects.csv", index=False)
+                steps = [
+                    ["import_csv.py", "uploaded_defects.csv"],
+                    ["embed_data.py"],
+                    ["cluster_save.py"],
+                    ["llm_name.py"],
+                    ["llm_suggest.py"],
+                ]
+                ok = True
+                with st.spinner("Analyzing. This takes a few minutes."):
+                    for s in steps:
+                        res = subprocess.run(
+                            [sys.executable] + s,
+                            capture_output=True, text=True)
+                        if res.returncode != 0:
+                            st.error(f"{s[0]} failed: {res.stderr[-800:]}")
+                            ok = False
+                            break
+                if ok:
+                    st.rerun()
 
 def tile(col, label, value):
     col.markdown(
