@@ -2,7 +2,7 @@
 
 Finds the defects a team keeps repeating, and tells you whether to fix the process or coach the people.
 
-![Dashboard](docs/dashboard.png)
+![Dashboard](docs/Dashboard.png)
 
 ## The problem
 
