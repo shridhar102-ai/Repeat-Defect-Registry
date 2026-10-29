@@ -50,6 +50,24 @@ top_count = df["person"].value_counts().iloc[0]
 
 st.title("Repeat Defect Registry")
 st.caption("Service delivery, last 90 days (fictional data)")
+with st.expander("Try your own data: upload a defect CSV"):
+    up = st.file_uploader(
+        "CSV with the columns: date, person, step, description, severity",
+        type="csv")
+    if up is not None:
+        up_df = pd.read_csv(up)
+        need = ["date", "person", "step", "description", "severity"]
+        missing = [c for c in need if c not in up_df.columns]
+        if missing:
+            st.error(f"Your file is missing these columns: {missing}")
+        else:
+            st.success(
+                f"Looks good: {len(up_df)} rows from "
+                f"{up_df['person'].nunique()} people. "
+                "Preview of the first 5 rows:")
+            st.markdown(
+                up_df.head(5).to_html(index=False, classes="dtab", border=0),
+                unsafe_allow_html=True)
 
 def tile(col, label, value):
     col.markdown(
