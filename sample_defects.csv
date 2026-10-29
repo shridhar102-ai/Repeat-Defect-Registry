@@ -1,0 +1,72 @@
+date,person,step,description,severity
+2026-08-06,Analyst 11,Closure,SLA timer left running after resolution,Medium
+2026-10-13,Analyst 08,Closure,Timestamp missing after callback,High
+2026-08-11,Analyst 08,Escalation,Escalation skipped for high severity,High
+2026-08-14,Analyst 09,Verification,Reset done without confirming identity,Medium
+2026-07-31,Analyst 04,Closure,Resolution notes left blank,Low
+2026-08-24,Analyst 09,Escalation,Escalation skipped for high severity,Medium
+2026-09-23,Analyst 07,Logging,Billing queue used instead of access,High
+2026-08-02,Analyst 01,Closure,Timestamp missing after callback,Low
+2026-10-13,Analyst 03,Closure,SLA clock not updated,Medium
+2026-09-05,Analyst 07,Logging,Billing queue used instead of access,Low
+2026-10-04,Analyst 03,Logging,Incorrect category selected,High
+2026-10-12,Analyst 12,Closure,Incomplete resolution summary,Medium
+2026-07-26,Analyst 09,Verification,Customer not verified before account change,High
+2026-09-24,Analyst 06,Escalation,Escalated to wrong team,Medium
+2026-08-08,Analyst 09,Verification,Customer not verified before account change,Medium
+2026-08-25,Analyst 05,Logging,Billing queue used instead of access,High
+2026-10-01,Analyst 04,Verification,Verification step missed on callback,High
+2026-09-20,Analyst 04,Closure,"Notes just say done, no detail",Medium
+2026-07-28,Analyst 04,Logging,"Categorised as hardware, should be software",Medium
+2026-10-14,Analyst 11,Logging,Incorrect category selected,Low
+2026-10-18,Analyst 07,Logging,Billing queue used instead of access,High
+2026-10-08,Analyst 09,Verification,Customer not verified before account change,High
+2026-09-16,Analyst 06,Closure,SLA timer left running after resolution,High
+2026-10-13,Analyst 06,Logging,"Categorised as hardware, should be software",Low
+2026-09-08,Analyst 12,Logging,Incorrect category selected,Low
+2026-10-15,Analyst 04,Verification,ID check skipped before password reset,Low
+2026-09-03,Analyst 02,Logging,"Categorised as hardware, should be software",Medium
+2026-07-25,Analyst 11,Closure,Response time not recorded,Low
+2026-09-03,Analyst 06,Logging,Wrong queue chosen at logging,Low
+2026-09-16,Analyst 05,Logging,"Mis-tagged as network issue, was access",Low
+2026-08-10,Analyst 01,Closure,SLA clock not updated,Low
+2026-08-12,Analyst 09,Verification,Reset done without confirming identity,Low
+2026-08-02,Analyst 03,Logging,Billing queue used instead of access,High
+2026-09-03,Analyst 11,Logging,Ticket logged under wrong category,Medium
+2026-08-14,Analyst 07,Logging,"Mis-tagged as network issue, was access",High
+2026-10-05,Analyst 04,Closure,Incomplete resolution summary,High
+2026-08-05,Analyst 03,Closure,Timestamp missing after callback,Medium
+2026-08-19,Analyst 04,Verification,Reset done without confirming identity,Medium
+2026-09-22,Analyst 07,Closure,Timestamp missing after callback,High
+2026-08-13,Analyst 07,Logging,Wrong queue chosen at logging,Low
+2026-07-28,Analyst 05,Closure,Response time not recorded,High
+2026-09-08,Analyst 04,Closure,Closure comment too brief to understand,Low
+2026-08-22,Analyst 02,Closure,Timestamp missing after callback,High
+2026-09-08,Analyst 09,Verification,Customer not verified before account change,Low
+2026-09-16,Analyst 04,Closure,Closure comment too brief to understand,Medium
+2026-08-10,Analyst 04,Verification,Customer not verified before account change,High
+2026-09-14,Analyst 03,Logging,"Mis-tagged as network issue, was access",Low
+2026-09-05,Analyst 01,Closure,Timestamp missing after callback,Medium
+2026-08-16,Analyst 05,Closure,SLA clock not updated,Medium
+2026-09-18,Analyst 09,Verification,ID check skipped before password reset,High
+2026-08-05,Analyst 03,Logging,Wrong queue chosen at logging,Low
+2026-10-16,Analyst 03,Logging,Ticket logged under wrong category,High
+2026-07-30,Analyst 02,Logging,Wrong queue chosen at logging,High
+2026-08-30,Analyst 04,Closure,Resolution notes left blank,Medium
+2026-08-14,Analyst 04,Closure,Closure comment too brief to understand,Medium
+2026-09-06,Analyst 04,Logging,Wrong queue chosen at logging,Medium
+2026-09-03,Analyst 04,Verification,Skipped security questions,High
+2026-10-17,Analyst 01,Closure,SLA clock not updated,Medium
+2026-10-09,Analyst 04,Closure,"Notes just say done, no detail",High
+2026-07-26,Analyst 09,Verification,Verification step missed on callback,Medium
+2026-10-04,Analyst 04,Verification,Skipped security questions,High
+2026-10-21,Analyst 02,Escalation,Wrong escalation path used,Medium
+2026-10-18,Analyst 05,Logging,"Mis-tagged as network issue, was access",Low
+2026-07-30,Analyst 02,Escalation,Escalated to wrong team,High
+2026-08-18,Analyst 09,Verification,ID check skipped before password reset,High
+2026-09-21,Analyst 09,Escalation,Escalation skipped for high severity,Low
+2026-10-21,Analyst 11,Logging,"Categorised as hardware, should be software",Low
+2026-09-18,Analyst 09,Verification,ID check skipped before password reset,Low
+2026-08-24,Analyst 04,Verification,Reset done without confirming identity,Low
+2026-08-31,Analyst 09,Verification,Didn't confirm caller identity,Medium
+2026-07-31,Analyst 12,Logging,Wrong queue chosen at logging,Low
